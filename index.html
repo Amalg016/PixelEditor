@@ -1,161 +1,58 @@
-<!-- <!DOCTYPE html>
-<html>
-    <head>
-        <title>
-            PixelEditor
-        </title>
-        <style>
-        body
-        {
-            background:#333333;
-            color: #ffffff;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
-        #toolbox {
-            position: absolute;
-            left: 10px;
-            top: 60px;
-            width: 100px;
-            height: calc(100% - 40px);
-            background-color: #f0f0f0;
-            padding: 10px;
-        }
-
-        #shortcutBox {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            height: 30px;
-            width: calc(100% - 30px);
-            background-color: #ccc;
-            padding: 10px;
-        }
-
-        #screen {
-            position: absolute;
-            top: 60px;
-            left: 130px;
-            width: calc(100% - 450px);
-            height: calc(100% - 20px);
-            background-color: #fff;
-        }
-
-        #canvas{
-            border:1px solid black;
-            cursor:pointer;
-        }
-
-        #rightBox {
-            position: absolute;
-            top: 60px;
-            right: 0px;
-            width: 300px;
-            height: calc(100% - 40px);
-            background-color: #f0f0f0;
-            padding: 10px;
-        }
-       
-        strong{
-            align-items: center;
-            font-size: 50px;
-            text-align: center;
-            margin-left: 20vw;     
-        }
-        #guide{
-            display: grid;
-            /* pointer-events: none; */
-            position: absolute;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-        #guide div{
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-        </style>
-    </head>
-    <body>
-      
-        <div id="toolbox">
-         
-            <input type="color" id="colorInput">
-          </div>
-        
-          <div id="shortcutBox">
-        
-          </div>
-          <div id="screen">
-            
-              <canvas id="canvas"></canvas>
-          </div>
-        <div id="rightBox">
-          
-          </div>
-
-       
-    </body>
-</html> -->
-
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    .container {
-      display: grid;
-      grid-template-columns: 60px 1fr 350px;
-      grid-template-rows: 50px 1fr;
-      grid-gap: 10px;
-      height: 100vh;
-    }
-    #toolbox {
-      grid-column: 1;
-      grid-row: 1 / span 2;
-      background-color: #f1f1f1;
-      display: grid;
-
-      grid-gap: 10px;
-    }
-   
-    #shortcut-box {
-      grid-column: 2;
-      grid-row: 1;
-      background-color: #f1f1f1;
-       
-    }
-    #canvas-container {
-      grid-column: 2;
-      grid-row: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    #myCanvas {
-      border: 1px solid #000;
-    }
-    #right-box {
-      grid-column: 3;
-      grid-row: 1 / span 2;
-      background-color: #f1f1f1;
-    }
-  </style>
+    <link rel="stylesheet" href="styles.css"></link>
 </head>
 <body>
-  <div class="container">
     <div id="toolbox">
+        <button class="minimize-button" onclick="toggleToolboxSize()">&#8211</button>
+        <div class="toolbar">
+            <input type="color" class="tool" id="colorInput" data-tool="pen">
+            <button class="tool" data-tool="eraser">e</button>
+            <button class="tool" data-tool="filler">f</button>
+            <button class="tool" data-tool="specialfiller">sf</button>
+        </div>
+    </div>
+    <!-- <div id="shortcut-box">
    
-        <input type="color" onclick="tool='pen'" id="colorInput">
-        <button onclick='tool="eraser"'>Eraser</button>
-      <!-- Add your toolbox content here -->
-    </div>
-    <div id="shortcut-box">
-      <!-- Add your shortcut box content here -->
-    </div>
+    </div> -->
+  <div class="container">
+   
+  
     <div id="canvas-container">
       <canvas id="myCanvas" width="400" height="400"></canvas>
     </div>
     <div id="right-box">
       <!-- Add your right box content here -->
+      <!-- Add your shortcut box content here -->
+        <div class="preview">
+            <strong>Preview</strong>
+            
+        </div>
+        
+        <div class="layers">
+            <strong>Layers</strong>
+            <div id="ui-box">
+                <button onclick="addLayer()">+</button>
+            </div>
+            <br>
+            <div id="layers"></div>
+        </div>
+    </div>
+    <div id="bottom-box">
+        <div id="ui-box">
+            <button onclick="addFile()">+</button>
+            <button >-</button>
+            <button>i></button> 
+        </div>
+        <br>
+        <div id="bottom-files">
+        </div>
     </div>
   </div>
 
+  <script src="right.js"></script>
+  <script src="bottom.js"></script>
   <script src="test.js"></script>
     </body>
 </html>
