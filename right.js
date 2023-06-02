@@ -41,8 +41,10 @@ function addLayer(){
     // imctx.clearRect(0,0,im.width,im.height);
     if(!files[currentFile][layerCount]){
       files[currentFile].push(Array.from({length:Resolution.count},()=>Array(Resolution.count).fill("none")));
+      if(layerCount!=0){
+          files[currentFile][layerCount]=JSON.parse(JSON.stringify(files[currentFile][layerCount-1]));   
+      }
     }
-
     la.setAttribute("data-index",layerCount);
     bottomBoximages[currentFile].setAttribute("data-layercount",layerCount);
     la.classList.add("layer");
@@ -64,17 +66,18 @@ function addLayer(){
 function updateLayers(){
    for(let i=0;i<layerCanvasctxes.length;i++){
     layerCanvasctxes[i].clearRect(0,0,100,100);
-    for(let j=0;j<=i;j++){
+    // for(let j=0;j<=i;j++){
         for(let x=0;x<Resolution.count;x++){
             for(let y=0;y<Resolution.count;y++){
-                const colr= files[currentFile][j][x][y];
+                const colr= files[currentFile][i][x][y];
                 layerCanvasctxes[i].fillStyle=colr;
                 if(colr!="none"){
                     const snapX=x*10;
                     const snapY=y*10;
                     layerCanvasctxes[i].fillRect(snapX, snapY, 10, 10);
                 } 
-                else if(colr=="none"&& j==0){
+                // else if(colr=="none"&& j==0){
+                else if(colr=="none"){
                     const snapX=x*10;
                     const snapY=y*10;
                     layerCanvasctxes[i].clearRect(snapX,snapY, 10,10);
@@ -82,7 +85,7 @@ function updateLayers(){
             }
         }
     }
-   }
+//    }
 }
 
 function selectLayer(){

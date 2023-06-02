@@ -15,8 +15,8 @@
   let currentFile=0;
   let currentlayer=0;
   
-let maxFileCount=2;
-let maxLayerCount=2;
+let maxFileCount=1;
+let maxLayerCount=1;
 
   initFiles(maxFileCount,maxLayerCount);
   addFile();
@@ -76,12 +76,14 @@ let maxLayerCount=2;
         case "pen":
           //  ctx.fillRect(snapX, snapY, Resolution.x, Resolution.y);
             files[currentFile][currentlayer][x][y]=color;    
-            // for(let i=currentlayer+1;i<layerCount;i++){
-            //   const pixelData =files[currentFile][i][x][y];
-            //   if(files[currentFile][i][x][y]=="none"){
-            //     files[currentFile][i][x][y]=color;
-            //   }
-            // }
+            for(let i=+currentlayer+1;i<layerCount;i++){
+              console.log(i);
+               console.log(files[currentFile]);
+               console.log(files[currentFile][i][x][y],files[currentFile][i]);
+              if(files[currentFile][+i][x][y]=="none"){
+                files[currentFile][+i][x][y]=color;
+              }
+            }
             render();       
             break;
         case "eraser":
@@ -90,19 +92,51 @@ let maxLayerCount=2;
            render();
             break;
         case "filler":
-            for(let i=0;i<Resolution.count;i++){
-                for(let j=0;j<Resolution.count;j++){
-                    files[currentFile][currentlayer][i][j]=colorInput.value;
+          
+          if(canFill){
+            canFill=false;
+            const targetCol=files[currentFile][currentlayer][x][y];
+            if(targetCol==color)break;
+            floodfill(x,y,targetCol,color);
+            while(stack.length>0){
+              const[ex,ey]=stack.pop();
+              for(let i=+currentlayer+1;i<layerCount;i++){
+                if(files[currentFile][i][ex][ey]=="none"){
+                  files[currentFile][i][ex][ey]=color;
                 }
+              }
             }
+            
             render();
+          }
            // exportSpritesheet();
            break;
     }
     updateLayers();
     updateFileCanvases();
   }
+let stack=[];
+let canFill=true;
 
+function floodfill(startX,startY,targetCol,fillcolor){
+   const pixelStck=[[startX,startY]];
+
+   while(pixelStck.length>0){
+    const[x,y]=pixelStck.pop();
+    console.log(x,y);
+    console.log(targetCol);
+    if(x>=0&&x<Resolution.count&&y>=0&&y<Resolution.count) {
+      if(files[currentFile][currentlayer][x][y]==targetCol){
+        files[currentFile][currentlayer][x][y]=fillcolor;
+        stack.push([x,y]);
+        pixelStck.push([x+1,y])
+        pixelStck.push([x-1,y])
+        pixelStck.push([x,y+1])
+        pixelStck.push([x,y-1])
+      }
+    }
+   }
+}  
 //   ctx.fillStyle="red";
 //   ctx.fillRect(0,0,100,100);
 
@@ -173,24 +207,25 @@ let maxLayerCount=2;
 
   function render(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(let i=0;i<=currentlayer;i++){
+    // for(let i=0;i<=currentlayer;i++){
         for(let x=0;x<Resolution.count;x++){
          for(let y=0;y<Resolution.count;y++){
-            const colr= files[currentFile][i][x][y];
+            const colr= files[currentFile][currentlayer][x][y];
             ctx.fillStyle=colr;
             if(colr!="none"){
                 const snapX=x*Resolution.x;
                 const snapY=y*Resolution.y;
                 ctx.fillRect(snapX, snapY, Resolution.x, Resolution.y);
             } 
-            else if(colr=="none"&& i==0){
+            // else if(colr=="none"&&i==0){
+            else if(colr=="none"){
                 const snapX=x*Resolution.x;
                 const snapY=y*Resolution.y;
                 ctx.clearRect(snapX,snapY, Resolution.x, Resolution.y);
             }
          }
         }
-      }
+      // }
     }
 
     function exportSpritesheet(){
@@ -231,4 +266,5 @@ let maxLayerCount=2;
       // Function to stop drawing
     function stopDrawing() {
          isDrawing = false;
+         canFill=true;
     }
