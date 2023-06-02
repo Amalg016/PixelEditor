@@ -5,9 +5,12 @@ function initFiles(fileslength,layerslength){
     ));
     console.log(files);
 }
+
 let layerCount=0;
-let canvases=[];
-let layerCanvases=[];
+let bottomBoximages=[];
+let LayerCanvases=[];
+
+let layerboxes=[];
 let layerCanvasctxes=[];
 let lastlayerCanvas=null;
 
@@ -15,8 +18,8 @@ function initLayers(){
     LayerContainer.innerHTML="";
     layerCount=0;
     layerCanvasctxes=[];
-    layerCanvases=[];
-    const n= canvases[currentFile].getAttribute("data-count");
+    layerboxes=[];
+    const n= bottomBoximages[currentFile].getAttribute("data-layercount");
     for(let i=0;i<=n;i++){
         addLayer();
         // console.log(canvases[currentFile]);
@@ -33,15 +36,20 @@ function addLayer(){
     im.height=100;
    la.width=150;
    la.height=150;
+   //console.log(Array.from({length:Resolution.count},()=>Array(Resolution.count).fill("none")));
     // imctx.drawImage(canvas,0,0,canvas.width,canvas.height,0,0,im.width,im.height);
     // imctx.clearRect(0,0,im.width,im.height);
+    if(!files[currentFile][layerCount]){
+      files[currentFile].push(Array.from({length:Resolution.count},()=>Array(Resolution.count).fill("none")));
+    }
+
     la.setAttribute("data-index",layerCount);
-    canvases[currentFile].setAttribute("data-count",layerCount);
+    bottomBoximages[currentFile].setAttribute("data-layercount",layerCount);
     la.classList.add("layer");
     LayerContainer.appendChild(la);
     la.addEventListener("click",layerClicked);
     layerCanvasctxes.push(imctx);
-    layerCanvases.push(la);
+    layerboxes.push(la);
     // if(fileIndex==0){
     //     currentCanvas=im;
     // }
@@ -51,6 +59,7 @@ function addLayer(){
     updateLayers();
     //console.log(currentCanvas);
 }
+
 
 function updateLayers(){
    for(let i=0;i<layerCanvasctxes.length;i++){
@@ -77,9 +86,9 @@ function updateLayers(){
 }
 
 function selectLayer(){
-     layerCanvases.forEach(sFile=>sFile.classList.remove("selected"));
-     console.log(currentlayer);
-     layerCanvases[currentlayer].classList.add("selected");
+     layerboxes.forEach(sFile=>sFile.classList.remove("selected"));
+    //  console.log(currentlayer);
+     layerboxes[currentlayer].classList.add("selected");
 }
 
 function layerClicked(e){

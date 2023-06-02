@@ -27,7 +27,9 @@
       <!-- Add your shortcut box content here -->
         <div class="preview">
             <strong>Preview</strong>
-            
+            <div class="preview-window">    
+                <canvas id="preview-canvas" ></canvas>
+            </div>
         </div>
         
         <div class="layers">
@@ -42,11 +44,15 @@
     <div id="bottom-box">
         <div id="ui-box">
             <button onclick="addFile()">+</button>
+            <button onclick="duplicateFile()">D</button>
             <button >-</button>
-            <button>i></button> 
+            <button onclick="toggleAnim()">i></button> 
+            <input type="number"  onchange="changeTimeInterval()" max="5" min="0.05" value="1" id="preview-canvas-time-input">
         </div>
-        <br>
         <div id="bottom-files">
+        </div>
+        <div id="bottom-timeline">
+            <input type="range" min="0" max="0" id="timeline">
         </div>
     </div>
   </div>
@@ -54,5 +60,6 @@
   <script src="right.js"></script>
   <script src="bottom.js"></script>
   <script src="test.js"></script>
+  <script src="animation.js"></script>
     </body>
 </html>

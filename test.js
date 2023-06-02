@@ -3,10 +3,11 @@
   const colorInput=document.getElementById("colorInput");
   const canvasContainer=document.getElementById("canvas-container");
   const toolbar = document.getElementById('toolbox');
+  const indexInput=document.getElementById("timeline");
   const tools=document.querySelectorAll(".tool");
   const canvas = document.getElementById('myCanvas');
   const ctx = canvas.getContext('2d');
-  colorInput.value="black";
+  colorInput.value="#000000";
  
   let colorMap=[];
   let files=[];
@@ -14,10 +15,13 @@
   let currentFile=0;
   let currentlayer=0;
   
-  initFiles(12,10);
+let maxFileCount=2;
+let maxLayerCount=2;
+
+  initFiles(maxFileCount,maxLayerCount);
   addFile();
   addLayer();
-  selectFile();
+  highlightFile();
   selectLayer();
   let isToolbarMoving = false;
   let dragOffsetX = 0;
@@ -72,6 +76,12 @@
         case "pen":
           //  ctx.fillRect(snapX, snapY, Resolution.x, Resolution.y);
             files[currentFile][currentlayer][x][y]=color;    
+            // for(let i=currentlayer+1;i<layerCount;i++){
+            //   const pixelData =files[currentFile][i][x][y];
+            //   if(files[currentFile][i][x][y]=="none"){
+            //     files[currentFile][i][x][y]=color;
+            //   }
+            // }
             render();       
             break;
         case "eraser":
@@ -89,8 +99,8 @@
            // exportSpritesheet();
            break;
     }
-    updateFileCanvases();
     updateLayers();
+    updateFileCanvases();
   }
 
 //   ctx.fillStyle="red";
@@ -189,8 +199,8 @@
         const thumbnailHeight = 100; // Adjust this value based on your thumbnail size
         const gap=10;
         // Calculate the number of rows and columns needed for the spritesheet
-        const numCols = Math.min(canvases.length, 5); // Adjust the maximum number of columns as needed
-        const numRows = Math.ceil(canvases.length / numCols);
+        const numCols = Math.min(bottomBoximages.length, 5); // Adjust the maximum number of columns as needed
+        const numRows = Math.ceil(bottomBoximages.length / numCols);
         
         // Create a canvas for the spritesheet
         const spritesheetCanvas = document.createElement('canvas');
@@ -199,7 +209,7 @@
         const imctx = spritesheetCanvas.getContext('2d');
         
         // Iterate through the thumbnail canvases and draw them onto the spritesheet
-        canvases.forEach((thumbnailCanvas, index) => {
+        bottomBoximages.forEach((thumbnailCanvas, index) => {
         const col = index % numCols;
         const row = Math.floor(index / numCols);
         const x = col * (thumbnailWidth+gap);
