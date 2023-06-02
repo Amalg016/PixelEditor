@@ -165,7 +165,8 @@
       }
       .preview .preview-window canvas{
         display: block;
-
+        width: 70%;
+        height: 70%;
         border: 2px solid black;
       }
       #bottom-files{
