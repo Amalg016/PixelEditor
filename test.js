@@ -229,7 +229,10 @@ function floodfill(startX,startY,targetCol,fillcolor){
     }
 
     function exportSpritesheet(){
-            // Determine the width and height of each thumbnail canvas
+      if(!candowload)return;
+      candowload=false;
+          //  event.target.disabled=true;
+      // Determine the width and height of each thumbnail canvas
         const thumbnailWidth = 100; // Adjust this value based on your thumbnail size
         const thumbnailHeight = 100; // Adjust this value based on your thumbnail size
         const gap=10;
@@ -242,6 +245,7 @@ function floodfill(startX,startY,targetCol,fillcolor){
         spritesheetCanvas.width = numCols * thumbnailWidth+(numCols-1)*gap;
         spritesheetCanvas.height = numRows * thumbnailHeight+(numRows-1)*gap;
         const imctx = spritesheetCanvas.getContext('2d');
+        console.log("dd2");
         
         // Iterate through the thumbnail canvases and draw them onto the spritesheet
         bottomBoximages.forEach((thumbnailCanvas, index) => {
@@ -251,18 +255,76 @@ function floodfill(startX,startY,targetCol,fillcolor){
         const y = row * (thumbnailHeight+gap);
         imctx.drawImage(thumbnailCanvas, 0, 0, thumbnailWidth, thumbnailHeight, x, y, thumbnailWidth, thumbnailHeight);
         });
+        console.log("dd1");
         
         // Convert the spritesheet canvas to a data URL
         const dataURL = spritesheetCanvas.toDataURL('image/png');
         
         // You can now use the dataURL or save it as an image
         //console.log(dataURL); // Print the dataURL to the console
-            const downloadlink=document.createElement("a");
+        const fileName=  "spriteheet.png";  
+        const downloadlink=document.createElement("a");
             downloadlink.href=dataURL;
-            downloadlink.download="spriteheet.png";
-            downloadlink.click();  
-    }
+            downloadlink.download=fileName;
+        
 
+            var progressElement = document.createElement('div');
+            progressElement.classList.add('progress-popup');
+            progressElement.innerHTML = `
+              <div class="progress-bar"></div>
+              <span class="progress-text">0%</span>
+            `;
+      
+            // Append the progress element to the document body
+            document.body.appendChild(progressElement);
+      
+            // Show the progress element
+            progressElement.style.display = 'block';
+      
+            // Create a new XMLHttpRequest to track the download progress
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', downloadlink.href, true);
+            xhr.responseType = 'blob';
+            var bob;
+            // Track the progress using the onprogress event
+            xhr.onprogress = function(e) {
+              if (e.lengthComputable) {
+                var percent = Math.floor((e.loaded / e.total) * 100);
+                var progressBar = progressElement.querySelector('.progress-bar');
+                var progressText = progressElement.querySelector('.progress-text');
+                progressBar.style.width = percent + '%';
+                progressText.innerText = percent + '%';
+              }
+            };
+      
+            // When the download is complete
+            xhr.onload = function() {
+              if (xhr.status === 200) {
+                blob = new Blob([this.response]);  
+               
+              }
+            };
+            xhr.onloadend = function(e){
+              var tempEl = document.createElement("a");
+              document.body.appendChild(tempEl);
+              tempEl.style = "display: none";
+             const url = window.URL.createObjectURL(blob);
+              tempEl.href = url;
+              tempEl.download = fileName;
+              tempEl.click();
+              window.URL.revokeObjectURL(url);
+               // Remove the progress element from the document body
+               document.body.removeChild(progressElement);
+               candowload=true;
+          }
+      
+            // Start the download
+            xhr.send();
+
+        // downloadlink.click();  
+        console.log("dd");
+    }
+let candowload=true;
       // Function to stop drawing
     function stopDrawing() {
          isDrawing = false;
