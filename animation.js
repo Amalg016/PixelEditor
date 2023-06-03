@@ -10,12 +10,14 @@ let PreviewCanvasHeight=PreviewCanvas.height;
 
 indexInput.value=0;
 
-function toggleAnim(){
+function toggleAnim(e){
     play=!play
   if(play){
+    e.target.classList.remove("unselected");
      animInterval=setInterval(NextImage,timegap);
   }
   else{
+    e.target.classList.add("unselected");
     clearInterval(animInterval);
     animInterval=null;
   }
