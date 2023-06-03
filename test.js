@@ -185,7 +185,7 @@ function floodfill(startX,startY,targetCol,fillcolor){
      const tileY=Math.floor(y/Resolution.y);
     switch (activeTool) {
         case "specialfiller":
-            exportSpritesheet();
+           
             break;
         default:
             updatePixel(tileX, tileY, colorInput.value);
@@ -300,8 +300,7 @@ function floodfill(startX,startY,targetCol,fillcolor){
             // When the download is complete
             xhr.onload = function() {
               if (xhr.status === 200) {
-                blob = new Blob([this.response]);  
-               
+                blob = new Blob([this.response]);     
               }
             };
             xhr.onloadend = function(e){
