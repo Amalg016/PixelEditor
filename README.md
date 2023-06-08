@@ -2,8 +2,10 @@
 
 ## Introduction
 
-PixelEditor is a web-based application that allows you to create and edit pixel art.It provides a simple interface for designing pixel-based images.
+Pixel Editor is a web-based application that allows you to create and edit pixel art. It provides a simple interface for designing pixel-based images.
+You can use it from [here](https://amalg016.github.io/PixelEditor/).
 ---
+
 ## Features 
 * Color-palette for selecting colors.
 * Tools for drawing,erasing and filling pixels
