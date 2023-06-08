@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Pixel Editor is a web-based application that allows you to create and edit pixel art. It provides a simple interface for designing pixel-based images.
+- Pixel Editor is a web-based application that allows you to create and edit pixel art. It provides a simple interface for designing pixel-based images.
 You can use it from [here](https://amalg016.github.io/PixelEditor/).
 ---
 
@@ -17,8 +17,8 @@ You can use it from [here](https://amalg016.github.io/PixelEditor/).
 
 ### Prerequisites
 
-To run the Pixel Editor,you need to have any of the following installed:
--Web Browser(Chrome,Safari,Brave)
+To run the Pixel Editor, you need to have any of the following installed:
+- Web Browser(Chrome,Safari,Brave).
 
 ### Cloning installation
 
