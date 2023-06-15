@@ -26,7 +26,6 @@
           visibility: hidden;
       }
       
-  
       .minimize-button{
           background-color: transparent;
           border: none;
@@ -38,6 +37,7 @@
           justify-content: center;
           align-items: center;
           height: 20px;
+          width: 50px;
       }
   
       .tool{
@@ -52,6 +52,45 @@
       .tool.active{
           background-color: #f00;
       }
+
+      #menu {
+        /* grid-column: 1;
+        grid-row: 1 / span 2;
+        background-color: #f1f1f1;
+        display: flex;
+        gap: 10px; */
+        position: absolute;
+        top: 100px;
+        left:100px;
+        cursor: move;
+        width: 50px;
+        transition: height 0.3s ease;
+        border: 1px solid black;
+      }
+      
+      .menubar{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 5px;
+      }
+
+      #menu.collapsed{
+         height: 20px;
+      }
+      #menu.collapsed .menubar{
+          visibility: hidden;
+      }
+
+     .menuItem{
+          width:50px;
+          padding: 5px 10px;
+          background-color: #ccc;
+          border: none;
+          cursor: pointer;
+          justify-content: center;
+          align-items: center;
+      }
+     
       .container {
         display: grid;
         grid-template-columns: 0px 1fr 350px;
@@ -358,4 +397,17 @@
         background-color: #f2f2f2;
         border: 1px solid #cccccc;
         margin-bottom: 10px;
+      }
+
+       .exportCanvas {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        padding: 20px;
+        text-align: center;
+        display: none;
+        color:black;
       }

@@ -4,6 +4,13 @@
     <link rel="stylesheet" href="src/styles.css"></link>
 </head>
 <body>
+    <div id="menu">
+        <button class="minimize-button" onclick="">&#8211</button>
+        <div class="menubar">
+            <button class="menuItem" onclick="exportSpritesheet()">exp</button>
+        </div>
+    </div>
+
     <div id="toolbox">
         <button class="minimize-button" onclick="toggleToolboxSize()">&#8211</button>
         <div class="toolbar">
@@ -11,7 +18,6 @@
             <button class="tool" data-tool="pen">p</button>
             <button class="tool" data-tool="eraser">e</button>
             <button class="tool" data-tool="filler">f</button>
-            <button class="tool" onclick="exportSpritesheet()" data-tool="specialfiller">exp</button>
         </div>
     </div>
     <!-- <div id="shortcut-box">

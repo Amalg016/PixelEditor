@@ -184,9 +184,6 @@ function floodfill(startX,startY,targetCol,fillcolor){
      const tileX=Math.floor(x/Resolution.x);
      const tileY=Math.floor(y/Resolution.y);
     switch (activeTool) {
-        case "specialfiller":
-           
-            break;
         default:
             updatePixel(tileX, tileY, colorInput.value);
             break;
@@ -227,10 +224,12 @@ function floodfill(startX,startY,targetCol,fillcolor){
         }
       // }
     }
+    let candowload=true;
 
     function exportSpritesheet(){
       if(!candowload)return;
       candowload=false;
+      
           //  event.target.disabled=true;
       // Determine the width and height of each thumbnail canvas
         const thumbnailWidth = 100; // Adjust this value based on your thumbnail size
@@ -245,7 +244,7 @@ function floodfill(startX,startY,targetCol,fillcolor){
         spritesheetCanvas.width = numCols * thumbnailWidth+(numCols-1)*gap;
         spritesheetCanvas.height = numRows * thumbnailHeight+(numRows-1)*gap;
         const imctx = spritesheetCanvas.getContext('2d');
-        console.log("dd2");
+      
         
         // Iterate through the thumbnail canvases and draw them onto the spritesheet
         bottomBoximages.forEach((thumbnailCanvas, index) => {
@@ -255,7 +254,7 @@ function floodfill(startX,startY,targetCol,fillcolor){
         const y = row * (thumbnailHeight+gap);
         imctx.drawImage(thumbnailCanvas, 0, 0, thumbnailWidth, thumbnailHeight, x, y, thumbnailWidth, thumbnailHeight);
         });
-        console.log("dd1");
+      
         
         // Convert the spritesheet canvas to a data URL
         const dataURL = spritesheetCanvas.toDataURL('image/png');
@@ -320,10 +319,7 @@ function floodfill(startX,startY,targetCol,fillcolor){
             // Start the download
             xhr.send();
 
-        // downloadlink.click();  
-        console.log("dd");
     }
-let candowload=true;
       // Function to stop drawing
     function stopDrawing() {
          isDrawing = false;
