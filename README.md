@@ -33,7 +33,7 @@ git clone https://github.com/Amalg016/PixelEditor.git
 ## Issues
 These are the [Known Issues](https://github.com/Amalg016/PixelEditor/issues).
 If you found a bug or have a new idea/feature for the program,
-[you can report them](https://github.com/Amalg016/PixelEditor/issues/new).
+you can report them [here](https://github.com/Amalg016/PixelEditor/issues/new/choose).
 
 ## Stable version:
 - [GitHub Pages (Web)](https://amalg016.github.io/PixelEditor/)
