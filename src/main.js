@@ -3,8 +3,10 @@
   const colorInput=document.getElementById("colorInput");
   const canvasContainer=document.getElementById("canvas-container");
   const toolbar = document.getElementById('toolbox');
+  const menubar = document.getElementById('menu');
   const indexInput=document.getElementById("timeline");
   const tools=document.querySelectorAll(".tool");
+  const menuItems=document.querySelectorAll(".menuItem");
   const canvas = document.getElementById('myCanvas');
   const ctx = canvas.getContext('2d');
   colorInput.value="#000000";
@@ -27,6 +29,7 @@ let maxLayerCount=1;
   let dragOffsetX = 0;
   let dragOffsetY = 0;
   let toolbarMinimized=false;
+  let menubarMinimized=false;
   toolbar.addEventListener('mousedown', startDragging);
   document.addEventListener('mousemove', drag);
   document.addEventListener('mouseup', stopDragging);
@@ -37,6 +40,14 @@ let maxLayerCount=1;
        tools.forEach(tools=>tools.display="none");
     }
     toolbar.classList.toggle("collapsed");
+  }
+
+  function toggleMenuSize(){
+    menubarMinimized=!menubarMinimized;
+    if(menubarMinimized){
+       menuItems.forEach(tools=>tools.display="none");
+    }
+    menubar.classList.toggle("collapsed");
   }
   
   function startDragging(event) {
@@ -320,6 +331,7 @@ function floodfill(startX,startY,targetCol,fillcolor){
             xhr.send();
 
     }
+    
       // Function to stop drawing
     function stopDrawing() {
          isDrawing = false;
