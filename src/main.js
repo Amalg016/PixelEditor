@@ -13,7 +13,7 @@
  
   let colorMap=[];
   let files=[];
-  let Resolution={x:32,y:32,count:10};
+  let Resolution={x:32,y:32,count:16};
   let currentFile=0;
   let currentlayer=0;
   
@@ -331,7 +331,22 @@ function floodfill(startX,startY,targetCol,fillcolor){
             xhr.send();
 
     }
-    
+
+    function exportJson(){
+      const tilemapData=JSON.stringify(files);
+      const blob=new Blob([tilemapData],{type:"application/json"});
+      const url=URL.createObjectURL(blob);
+  
+      const link=document.createElement("a");
+      link.href=url;
+      link.download="userData.json";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+     // localStorage.setItem("tilemapData",tilemapData);
+      console.log("saved");
+  }
       // Function to stop drawing
     function stopDrawing() {
          isDrawing = false;

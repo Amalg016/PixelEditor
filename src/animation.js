@@ -45,8 +45,25 @@ function changeSlidermaxValue(n){
 
 function NextImage(){
     previewCtx.clearRect(0,0,PreviewCanvasWidth,PreviewCanvasHeight);
-    const pCanvas=bottomBoximages[+indexInput.value];
+    // const pCanvas=bottomBoximages[+indexInput.value];
    // console.log(pCanvas,indexInput.value);
-    previewCtx.drawImage(pCanvas,0,0,pCanvas.width,pCanvas.height,0,0,PreviewCanvasWidth,PreviewCanvasHeight);
+   for(let x=0;x<Resolution.count;x++){
+    for(let y=0;y<Resolution.count;y++){
+       const colr= files[+indexInput.value][files[+indexInput.value].length-1][x][y];
+       ctx.fillStyle=colr;
+       if(colr!="none"){
+           const snapX=x*PreviewCanvasWidth/Resolution.count;
+           const snapY=y* PreviewCanvasHeight/Resolution.count;
+           previewCtx.fillRect(snapX, snapY, PreviewCanvasWidth/Resolution.count, PreviewCanvasHeight/Resolution.count);
+       } 
+       // else if(colr=="none"&&i==0){
+       else if(colr=="none"){
+           const snapX=x*PreviewCanvasWidth/Resolution.count;
+           const snapY=y*PreviewCanvasHeight/Resolution.count;
+           previewCtx.clearRect(snapX,snapY, PreviewCanvasWidth/Resolution.count,PreviewCanvasHeight/Resolution.count);
+       }
+    }
+   }
+    // previewCtx.drawImage(pCanvas,0,0,pCanvas.width,pCanvas.height,0,0,PreviewCanvasWidth,PreviewCanvasHeight);
     indexInput.value=(+indexInput.value+1)%bottomBoximages.length;
 }

@@ -72,15 +72,15 @@ function updateLayers(){
                 const colr= files[currentFile][i][x][y];
                 layerCanvasctxes[i].fillStyle=colr;
                 if(colr!="none"){
-                    const snapX=x*10;
-                    const snapY=y*10;
-                    layerCanvasctxes[i].fillRect(snapX, snapY, 10, 10);
+                    const snapX=x*(100/Resolution.count);
+                    const snapY=y*(100/Resolution.count);
+                    layerCanvasctxes[i].fillRect(snapX, snapY,(100/Resolution.count), (100/Resolution.count));
                 } 
                 // else if(colr=="none"&& j==0){
                 else if(colr=="none"){
-                    const snapX=x*10;
-                    const snapY=y*10;
-                    layerCanvasctxes[i].clearRect(snapX,snapY, 10,10);
+                    const snapX=x*(100/Resolution.count);
+                    const snapY=y*(100/Resolution.count);
+                    layerCanvasctxes[i].clearRect(snapX,snapY,(100/Resolution.count),(100/Resolution.count));
                 }
             }
         }
